@@ -2,12 +2,13 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-type User {
-  id: Int!
-  login: String!
-  displayName: String
+type Query {
+  getUserByEmail(userEmail: String!): User!
+  getUserById(userId: Float!): User!
 }
 
-type Query {
-  getUser: User!
+type User {
+  email: String
+  id: ID!
+  name: String
 }

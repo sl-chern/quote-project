@@ -1,0 +1,53 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: ./Dockerfile.dev
+    env_file: ./.env.dev
+    ports:
+      - ${BACKEND_PORT}:${BACKEND_PORT}
+    volumes:
+      - ./backend/src:/app/src
+      - ./backend/test:/app/test
+    depends_on:
+      - db
+      #- redis
+
+  # frontend:
+  #   build:
+  #     context: ./frontend
+  #     dockerfile: ./Dockerfile.dev
+  #   env_file: ./.env.dev
+  #   ports:
+  #     - ${FRONTEND_PORT}:${FRONTEND_PORT}
+  #   volumes:
+  #     - ./frontend/src:/app/src
+  #     - ./shared/dist:/app/node_modules/shared
+  #   depends_on:
+  #     - backend
+
+  db:
+    image: postgres:latest
+    restart: on-failure
+    environment:
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: ${DB_USERNAME}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    #   PG_DATA: /var/lib/postgresql/data
+    # volumes:
+    #   - pgdata:/var/lib/postgresql/data
+    ports:
+      - ${DB_PORT}:${DB_PORT}
+    command: -p ${DB_PORT}
+  
+# volumes:
+#   pgdata:
+
+  # redis:
+  #   image: redis:latest
+  #   ports: 
+  #     - ${REDIS_PORT}:${REDIS_PORT}
+  #   env_file: ./.env.dev
+  #   command: redis-server --requirepass ${REDIS_PASS} --port ${REDIS_PORT}
