@@ -2,13 +2,69 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+input CreateQuoteInput {
+  history: String!
+  text: String!
+}
+
+input GetQuotesInput {
+  type: String!
+  userId: String
+}
+
+input LoginInput {
+  email: String!
+  password: String!
+}
+
+type LoginReturn {
+  accessToken: String!
+  refreshToken: String!
+  userInfo: User!
+}
+
+type Mutation {
+  createQuote(quoteInput: CreateQuoteInput!): Quote!
+  deleteQuote(quoteId: String!): Quote!
+  registration(registrationInput: RegistrationInput!): User!
+  updateQuote(updateQuoteInput: UpdateQuoteInput!): Quote!
+}
+
+type Permission {
+  id: ID!
+  name: String
+}
+
 type Query {
+  getQuoteById(quoteId: String!): Quote!
+  getQuotes(getQuotesInput: GetQuotesInput!): [Quote!]!
   getUserByEmail(userEmail: String!): User!
-  getUserById(userId: Float!): User!
+  getUserById(userId: String!): User!
+  login(loginInput: LoginInput!): LoginReturn!
+}
+
+type Quote {
+  author: User!
+  history: String
+  id: ID!
+  text: String!
+}
+
+input RegistrationInput {
+  email: String!
+  name: String!
+  password: String!
+}
+
+input UpdateQuoteInput {
+  history: String!
+  id: String!
+  text: String!
 }
 
 type User {
-  email: String
+  email: String!
   id: ID!
-  name: String
+  name: String!
+  permissions: [Permission!]
 }

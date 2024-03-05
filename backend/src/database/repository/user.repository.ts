@@ -13,6 +13,7 @@ export class UserRepository extends Repository<UserEntity> {
       where: {
         email: email,
       },
+      relations: ['permissions'],
     });
   }
 }

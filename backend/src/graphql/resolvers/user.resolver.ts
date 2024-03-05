@@ -7,12 +7,7 @@ export class UserResolver {
   constructor(private readonly userService: UserService) {}
 
   @Query(returns => User)
-  async getUserById(@Args('userId') id: number): Promise<User> {
+  async getUserById(@Args('userId') id: string): Promise<User> {
     return this.userService.findById(id);
-  }
-
-  @Query(returns => User)
-  async getUserByEmail(@Args('userEmail') email: string): Promise<User> {
-    return this.userService.findByEmail(email);
   }
 }

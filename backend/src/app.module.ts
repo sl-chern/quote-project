@@ -8,6 +8,7 @@ import dbConfig from './config/database.config';
 import { DatabaseModule } from './database/database.module';
 import { GqlApiModule } from './graphql/gql-api.module';
 import { UserService } from './graphql/services/user.service';
+import { RedisModule } from './redis/redis.module';
 
 @Module({
   imports: [
@@ -32,7 +33,10 @@ import { UserService } from './graphql/services/user.service';
         return Object.assign(options, {
           entities: ['dist/**/*.entity{.ts,.js}'],
           autoLoadEntities: true,
-          synchronize: true,
+          synchronize: false,
+          migrationsRun: true,
+          migrationsTableName: 'migrations_typeorm',
+          migrations: ['dist/database/migrations/**{.ts,.js}'],
           logging: true,
         }) as any;
       },
@@ -45,6 +49,7 @@ import { UserService } from './graphql/services/user.service';
       sortSchema: true,
     }),
     DatabaseModule,
+    RedisModule,
     GqlApiModule,
   ],
   controllers: [],
