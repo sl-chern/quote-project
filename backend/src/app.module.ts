@@ -1,13 +1,11 @@
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { Module } from '@nestjs/common';
 import { GraphQLModule } from '@nestjs/graphql';
-import { UserResolver } from './graphql/resolvers/user.resolver';
 import { ConfigModule, ConfigType } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import dbConfig from './config/database.config';
 import { DatabaseModule } from './database/database.module';
 import { GqlApiModule } from './graphql/gql-api.module';
-import { UserService } from './graphql/services/user.service';
 import { RedisModule } from './redis/redis.module';
 
 @Module({
@@ -53,6 +51,6 @@ import { RedisModule } from './redis/redis.module';
     GqlApiModule,
   ],
   controllers: [],
-  providers: [UserResolver, UserService],
+  providers: [],
 })
 export class AppModule {}

@@ -8,15 +8,15 @@ import {
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcryptjs';
 import * as crypto from 'crypto';
-import { JwtPayload } from '../../auth/interfaces/jwt-payload.interface';
-import { UserRepository } from '../../database/repository/user.repository';
-import { RedisService } from '../../redis/redis.service';
-import { LoginInput } from '../dto/login.input';
-import { RefreshInput } from '../dto/refresh.input';
-import { WEEK_IN_MILLISECONDS } from '../../auth/helpers/auth.constants';
-import { RegistrationInput } from '../dto/registration.input';
 import { PermissionRepository } from 'src/database/repository/permission.repository';
 import { PermissionType } from 'src/auth/helpers/permission-type.enum';
+import { UserRepository } from 'src/database/repository/user.repository';
+import { RedisService } from 'src/redis/redis.service';
+import { JwtPayload } from 'src/auth/interfaces/jwt-payload.interface';
+import { WEEK_IN_MILLISECONDS } from 'src/auth/helpers/auth.constants';
+import { RefreshInput } from './dto/refresh.input';
+import { LoginInput } from './dto/login.input';
+import { RegistrationInput } from './dto/registration.input';
 
 @Injectable()
 export class AuthService {

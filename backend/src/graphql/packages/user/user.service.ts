@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { UserRepository } from '../../database/repository/user.repository';
-import { User } from '../types/user.model';
+import { UserRepository } from 'src/database/repository/user.repository';
+import { User } from 'src/graphql/types/user.model';
 
 @Injectable()
 export class UserService {

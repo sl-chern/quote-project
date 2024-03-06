@@ -1,11 +1,11 @@
 import { Resolver, Query, Args, Mutation } from '@nestjs/graphql';
-import { Quote } from '../types/quote.model';
-import { QuoteService } from '../services/quote.service';
-import { CreateQuoteInput } from '../dto/create-quote.input';
 import { GqlUser } from 'src/auth/decorators/gql-user.decorator';
 import { UserPrincipal } from 'src/auth/interfaces/user-principal.interface';
-import { UpdateQuoteInput } from '../dto/update-quote.input';
-import { GetQuotesInput } from '../dto/get-quotes.input';
+import { Quote } from 'src/graphql/types/quote.model';
+import { QuoteService } from './quote.service';
+import { CreateQuoteInput } from './dto/create-quote.input';
+import { GetQuotesInput } from './dto/get-quotes.input';
+import { UpdateQuoteInput } from './dto/update-quote.input';
 
 @Resolver(of => Quote)
 export class QuoteResolver {
