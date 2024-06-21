@@ -1,12 +1,12 @@
 import { Module } from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { RedisModule } from 'src/redis/redis.module';
+import { RedisModule } from '../../../redis/redis.module';
 import { JwtModule } from '@nestjs/jwt';
 import { ConfigModule, ConfigType } from '@nestjs/config';
-import jwtConfig from 'src/config/jwt.config';
+import jwtConfig from '../../../config/jwt.config';
 import { AuthResolver } from './auth.resolver';
-import { PermissionRepository } from 'src/database/repository/permission.repository';
-import { UserRepository } from 'src/database/repository/user.repository';
+import { PermissionRepository } from '../../../database/repository/permission.repository';
+import { UserRepository } from '../../../database/repository/user.repository';
 import { UserModule } from '../user/user.module';
 
 @Module({
@@ -14,6 +14,9 @@ import { UserModule } from '../user/user.module';
   imports: [
     UserModule,
     RedisModule,
+    ConfigModule.forRoot({
+      load: [jwtConfig],
+    }),
     JwtModule.registerAsync({
       imports: [ConfigModule.forFeature(jwtConfig)],
       useFactory: async (cfg: ConfigType<typeof jwtConfig>) => cfg,
@@ -21,4 +24,4 @@ import { UserModule } from '../user/user.module';
     }),
   ],
 })
-export class AuthGqlModule {}
+export class AuthModule {}

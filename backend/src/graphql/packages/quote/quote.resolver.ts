@@ -1,7 +1,7 @@
 import { Resolver, Query, Args, Mutation } from '@nestjs/graphql';
-import { GqlUser } from 'src/auth/decorators/gql-user.decorator';
-import { UserPrincipal } from 'src/auth/interfaces/user-principal.interface';
-import { Quote } from 'src/graphql/types/quote.model';
+import { GqlUser } from '../../../auth/decorators/gql-user.decorator';
+import { UserPrincipal } from '../../../auth/interfaces/user-principal.interface';
+import { Quote } from '../../../graphql/types/quote.model';
 import { QuoteService } from './quote.service';
 import { CreateQuoteInput } from './dto/create-quote.input';
 import { GetQuotesInput } from './dto/get-quotes.input';

@@ -1,8 +1,8 @@
 import { ForbiddenException, Injectable } from '@nestjs/common';
-import { QuoteRepository } from 'src/database/repository/quote.repository';
-import { PermissionType } from 'src/auth/helpers/permission-type.enum';
-import { UserRepository } from 'src/database/repository/user.repository';
-import { Quote } from 'src/graphql/types/quote.model';
+import { QuoteRepository } from '../../../database/repository/quote.repository';
+import { PermissionType } from '../../../auth/helpers/permission-type.enum';
+import { UserRepository } from '../../../database/repository/user.repository';
+import { Quote } from '../../../graphql/types/quote.model';
 import { GetQuotesInput } from './dto/get-quotes.input';
 
 @Injectable()

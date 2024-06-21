@@ -2,11 +2,14 @@ import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { Module } from '@nestjs/common';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ConfigModule, ConfigType } from '@nestjs/config';
-import { TypeOrmModule } from '@nestjs/typeorm';
+import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
 import dbConfig from './config/database.config';
 import { DatabaseModule } from './database/database.module';
 import { GqlApiModule } from './graphql/gql-api.module';
 import { RedisModule } from './redis/redis.module';
+import { AuthModule } from './auth/auth.module';
+import { GraphQLError } from 'graphql';
+import { OriginalError } from './types/OriginalError';
 
 @Module({
   imports: [
@@ -29,14 +32,14 @@ import { RedisModule } from './redis/redis.module';
             };
 
         return Object.assign(options, {
-          entities: ['dist/**/*.entity{.ts,.js}'],
+          entities: cfg.entities,
           autoLoadEntities: true,
           synchronize: false,
           migrationsRun: true,
           migrationsTableName: 'migrations_typeorm',
-          migrations: ['dist/database/migrations/**{.ts,.js}'],
+          migrations: cfg.migrations,
           logging: true,
-        }) as any;
+        }) as TypeOrmModuleOptions;
       },
       inject: [dbConfig.KEY],
     }),
@@ -45,7 +48,23 @@ import { RedisModule } from './redis/redis.module';
       playground: true,
       autoSchemaFile: 'src/schema.gql',
       sortSchema: true,
+      context: ({ req, res }) => ({ req, res }),
+      formatError: (error: GraphQLError) => {
+        const originalError = error.extensions?.originalError as OriginalError;
+
+        if (!originalError) {
+          return {
+            message: error.message,
+            code: error.extensions?.code,
+          };
+        }
+        return {
+          message: originalError?.message,
+          code: error.extensions?.code,
+        };
+      },
     }),
+    AuthModule,
     DatabaseModule,
     RedisModule,
     GqlApiModule,

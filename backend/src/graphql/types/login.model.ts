@@ -1,4 +1,4 @@
-import { Field, ID, ObjectType } from '@nestjs/graphql';
+import { Field, ObjectType } from '@nestjs/graphql';
 import { User } from './user.model';
 
 @ObjectType()
@@ -10,5 +10,5 @@ export class LoginReturn {
   refreshToken: string;
 
   @Field(type => User)
-  userInfo: string;
+  userInfo: User;
 }

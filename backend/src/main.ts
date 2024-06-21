@@ -2,6 +2,8 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { ValidationPipe } from '@nestjs/common';
+import { HttpExceptionFilter } from './graphql/filters/http.exeption.filter';
+import * as cookieParser from 'cookie-parser';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
@@ -10,8 +12,10 @@ async function bootstrap() {
       whitelist: true,
     }),
   );
-  app.enableCors();
+  app.use(cookieParser());
+  app.enableCors({ origin: 'http://localhost:3000', credentials: true });
   app.setGlobalPrefix('api/v1');
+  app.useGlobalFilters(new HttpExceptionFilter());
   await app.listen(process.env.BACKEND_PORT);
 }
 bootstrap();

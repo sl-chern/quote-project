@@ -16,7 +16,12 @@
     "noImplicitAny": false,
     "strictBindCallApply": false,
     "forceConsistentCasingInFileNames": false,
-    "noFallthroughCasesInSwitch": false
+    "noFallthroughCasesInSwitch": false,
+    "paths": {
+      "shared/*": [
+        "../shared/src/*"
+      ]
+    },
   },
   "watchOptions": {
     "watchFile": "fixedPollingInterval"

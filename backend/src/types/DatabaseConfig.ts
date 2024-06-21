@@ -6,4 +6,6 @@ export interface DatabaseConfig {
   database?: string;
   username?: string;
   password?: string;
+  entities?: Array<string>;
+  migrations?: Array<string>;
 }

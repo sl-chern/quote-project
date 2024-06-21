@@ -4,8 +4,13 @@
   "description": "",
   "scripts": {
     "init:backend": "cd backend && npm install",
+    "link-shared:backend": "cd backend && npm link shared",
     "init:frontend": "cd frontend && npm install",
-    "init": "npm install && npm-run-all -p init:*",
+    "link-shared:frontend": "cd frontend && npm link shared",
+    "build:shared": "cd shared && npm run build",
+    "link-shared:global": "cd shared/dist && npm link",
+    "link-shared": "npm run link-shared:global && npm run link-shared:backend && npm run link-shared:frontend",
+    "init": "npm install && npm-run-all -p init:* && npm run build:shared && npm run link-shared",
     "start": "docker compose --env-file=.env.dev up -d",
     "start:build": "docker compose --env-file=.env.dev up --build -d",
     "stop": "docker compose --env-file=.env.dev down",
@@ -13,6 +18,7 @@
   },
   "author": "",
   "devDependencies": {
+    "@0no-co/graphqlsp": "^1.6.0",
     "@typescript-eslint/eslint-plugin": "^6.21.0",
     "@typescript-eslint/parser": "^6.21.0",
     "eslint": "^8.56.0",

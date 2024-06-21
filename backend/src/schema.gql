@@ -17,15 +17,11 @@ input LoginInput {
   password: String!
 }
 
-type LoginReturn {
-  accessToken: String!
-  refreshToken: String!
-  userInfo: User!
-}
-
 type Mutation {
   createQuote(quoteInput: CreateQuoteInput!): Quote!
   deleteQuote(quoteId: String!): Quote!
+  login(loginInput: LoginInput!): User!
+  refresh: Boolean!
   registration(registrationInput: RegistrationInput!): User!
   updateQuote(updateQuoteInput: UpdateQuoteInput!): Quote!
 }
@@ -40,7 +36,7 @@ type Query {
   getQuotes(getQuotesInput: GetQuotesInput!): [Quote!]!
   getUserByEmail(userEmail: String!): User!
   getUserById(userId: String!): User!
-  login(loginInput: LoginInput!): LoginReturn!
+  verifyUser: User!
 }
 
 type Quote {

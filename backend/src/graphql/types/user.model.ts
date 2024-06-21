@@ -4,7 +4,7 @@ import { Permission } from './permission.model';
 @ObjectType()
 export class User {
   @Field(type => ID)
-  id?: string;
+  id: string;
 
   @Field(type => String)
   name: string;
@@ -13,5 +13,5 @@ export class User {
   email: string;
 
   @Field(type => [Permission], { nullable: true })
-  permissions?: Array<Permission>;
+  permissions: Array<Permission>;
 }

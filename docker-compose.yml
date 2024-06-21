@@ -1,35 +1,39 @@
-version: '3.8'
-
 services:
   backend:
     build:
       context: ./backend
       dockerfile: ./Dockerfile.dev
+    container_name: backend
     env_file: ./.env.dev
     ports:
       - ${BACKEND_PORT}:${BACKEND_PORT}
     volumes:
       - ./backend/src:/app/src
       - ./backend/test:/app/test
+      - ./shared/dist:/app/node_modules/shared
     depends_on:
       - db
       - redis
 
-  # frontend:
-  #   build:
-  #     context: ./frontend
-  #     dockerfile: ./Dockerfile.dev
-  #   env_file: ./.env.dev
-  #   ports:
-  #     - ${FRONTEND_PORT}:${FRONTEND_PORT}
-  #   volumes:
-  #     - ./frontend/src:/app/src
-  #     - ./shared/dist:/app/node_modules/shared
-  #   depends_on:
-  #     - backend
+  frontend:
+    container_name: frontend
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    env_file:
+      - .env.dev
+    volumes:
+      - ./frontend/src:/nextapp/src
+      - ./frontend/public:/nextapp/public
+      - ./shared/dist:/nextapp/node_modules/shared
+      - ./frontend/tailwind.config.ts:/nextapp/tailwind.config.ts
+    restart: always
+    ports:
+      - 3000:3000
 
   db:
     image: postgres:latest
+    container_name: db
     restart: on-failure
     environment:
       POSTGRES_DB: ${DB_NAME}
