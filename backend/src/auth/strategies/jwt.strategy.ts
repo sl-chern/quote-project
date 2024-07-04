@@ -23,6 +23,7 @@ export class JwtStrategy extends PassportStrategy(Strategy, 'jwt') {
 
   validate(payload: JwtPayload): UserPrincipal {
     return {
+      id: payload.id,
       email: payload.email,
       name: payload.name,
       permissions: payload.permissions as PermissionType[] | undefined,

@@ -21,6 +21,7 @@ type Mutation {
   createQuote(quoteInput: CreateQuoteInput!): Quote!
   deleteQuote(quoteId: String!): Quote!
   login(loginInput: LoginInput!): User!
+  logout: Boolean!
   refresh: Boolean!
   registration(registrationInput: RegistrationInput!): User!
   updateQuote(updateQuoteInput: UpdateQuoteInput!): Quote!

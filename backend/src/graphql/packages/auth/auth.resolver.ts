@@ -42,6 +42,17 @@ export class AuthResolver {
     });
   };
 
+  removeAuthCookies = (res: Response) => {
+    res.clearCookie(cookiesNames.accessToken, {
+      httpOnly: true,
+      secure: true,
+    });
+    res.clearCookie(cookiesNames.refreshToken, {
+      httpOnly: true,
+      secure: true,
+    });
+  };
+
   @Mutation(() => User)
   async login(
     @Args('loginInput') loginInput: LoginInput,
@@ -65,14 +76,7 @@ export class AuthResolver {
       this.setAuthCookies(res, tokens.accessToken, tokens.refreshToken);
       return true;
     } catch (err) {
-      res.clearCookie(cookiesNames.accessToken, {
-        httpOnly: true,
-        secure: true,
-      });
-      res.clearCookie(cookiesNames.refreshToken, {
-        httpOnly: true,
-        secure: true,
-      });
+      this.removeAuthCookies(res);
       return err;
     }
   }
@@ -86,6 +90,14 @@ export class AuthResolver {
   @Query(() => User)
   async verifyUser(@GqlUser() user: UserPrincipal) {
     return this.userService.findByEmail(user.email);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Mutation(() => Boolean)
+  async logout(@GqlUser() user: UserPrincipal, @Context() { res }: { res: Response }) {
+    this.authService.logout(user.id);
+    this.removeAuthCookies(res);
+    return true;
   }
 
   @UseGuards(JwtAuthGuard, HasPermissionsGuard)

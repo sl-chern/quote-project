@@ -181,6 +181,18 @@ export type introspection = {
             ]
           },
           {
+            "name": "logout",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            },
+            "args": []
+          },
+          {
             "name": "refresh",
             "type": {
               "kind": "NON_NULL",

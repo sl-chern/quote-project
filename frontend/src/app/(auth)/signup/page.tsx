@@ -17,7 +17,7 @@ export default function RegisterPage() {
   const router = useRouter();
   const { toast } = useToast();
 
-  const [result, register] = useMutation(registrationMutation);
+  const [, register] = useMutation(registrationMutation);
 
   const form = useForm<z.infer<typeof registrationSchema>>({
     resolver: zodResolver(registrationSchema),

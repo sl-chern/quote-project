@@ -11,9 +11,12 @@ import { Button } from '@/components/ui/button';
 import signinSchema from '@/types/schemas/signinSchema.schema';
 import { useMutation } from 'urql';
 import { loginMutation } from '@/graphql/mutations/login';
+import { useLoadingStore } from '@/store/loadingStore';
+import { useEffect } from 'react';
 
-export default function RegisterPage() {
+export default function SignInPage() {
   const router = useRouter();
+  const setLoading = useLoadingStore(state => state.setLoading);
 
   const [, login] = useMutation(loginMutation);
 
@@ -34,6 +37,10 @@ export default function RegisterPage() {
       router.push('/');
     } catch {}
   };
+
+  useEffect(() => {
+    setLoading(false);
+  }, []);
 
   return (
     <div className='flex flex-col w-1/2 gap-4'>
