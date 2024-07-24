@@ -41,35 +41,33 @@ describe('AppController (e2e)', () => {
         expect(res.body.data.registration.name).toEqual('lesha');
       });
 
-      it('query login (correct password)', async () => {
+      it('mutation login (correct password)', async () => {
         const res = await request(app.getHttpServer())
           .post(gql)
           .send({
-            query: `query {
+            query: `mutation {
               login(loginInput: {email: "3@gmail.com", password: "qwerty"}) {
-                accessToken,
-                refreshToken,
-                userInfo {
+                name
+                permissions {
                   name
-                  permissions {
-                    name
-                  }
                 }
               }
             }`,
           });
         expect(res.status).toBe(200);
-        expect(res.body.data.login.userInfo.name).toEqual('lesha');
+        expect(res.body.data.login.name).toEqual('lesha');
       });
 
-      it('query login (nonexistent user)', async () => {
+      it('mutation login (nonexistent user)', async () => {
         const res = await request(app.getHttpServer())
           .post(gql)
           .send({
-            query: `query {
+            query: `mutation {
               login(loginInput: {email: "1@gmail.com", password: "qwerty"}) {
-                accessToken,
-                refreshToken
+                name
+                permissions {
+                  name
+                }
               }
             }`,
           });
@@ -77,14 +75,16 @@ describe('AppController (e2e)', () => {
         expect(res.body.errors[0].message).toEqual('User does not exist');
       });
 
-      it('query login (incorrect password)', async () => {
+      it('mutation login (incorrect password)', async () => {
         const res = await request(app.getHttpServer())
           .post(gql)
           .send({
-            query: `query {
+            query: `mutation {
               login(loginInput: {email: "3@gmail.com", password: "qwert"}) {
-                accessToken,
-                refreshToken
+                name
+                permissions {
+                  name
+                }
               }
             }`,
           });
