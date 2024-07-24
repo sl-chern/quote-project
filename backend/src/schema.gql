@@ -25,6 +25,7 @@ type Mutation {
   refresh: Boolean!
   registration(registrationInput: RegistrationInput!): User!
   updateQuote(updateQuoteInput: UpdateQuoteInput!): Quote!
+  uploadImage(image: String!, imageName: String!): UrlReturn!
 }
 
 type Permission {
@@ -33,6 +34,8 @@ type Permission {
 }
 
 type Query {
+  deleteImage(imageName: String!): Boolean!
+  getImageUrl: UrlReturn!
   getQuoteById(quoteId: String!): Quote!
   getQuotes(getQuotesInput: GetQuotesInput!): [Quote!]!
   getUserByEmail(userEmail: String!): User!
@@ -57,6 +60,10 @@ input UpdateQuoteInput {
   history: String!
   id: String!
   text: String!
+}
+
+type UrlReturn {
+  url: String!
 }
 
 type User {
