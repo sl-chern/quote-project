@@ -68,7 +68,6 @@ export class AuthResolver {
     try {
       if (!req?.cookies?.refresh_token) throw new BadRequestException('Token not exist');
       const decoded = JSON.parse(atob(req.cookies.refresh_token)) as JwtPayload;
-      console.log(decoded);
       const tokens = await this.authService.refresh({
         id: decoded.id,
         refresh_token: req.cookies.refresh_token,

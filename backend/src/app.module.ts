@@ -10,6 +10,7 @@ import { RedisModule } from './redis/redis.module';
 import { AuthModule } from './auth/auth.module';
 import { GraphQLError } from 'graphql';
 import { OriginalError } from './types/OriginalError';
+import { BucketModule } from './bucket/bucket.module';
 
 @Module({
   imports: [
@@ -68,6 +69,7 @@ import { OriginalError } from './types/OriginalError';
     DatabaseModule,
     RedisModule,
     GqlApiModule,
+    BucketModule,
   ],
   controllers: [],
   providers: [],
