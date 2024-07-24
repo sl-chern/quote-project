@@ -17,7 +17,7 @@
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-    "test:e2e": "jest --config ./test/jest-e2e.json",
+    "test:e2e": "jest --config ./test/jest-e2e.json --runInBand --detectOpenHandles --forceExit",
     "typeorm": "ts-node ./node_modules/typeorm/cli",
     "migration:run": "npm run development typeorm migration:run -- -d ./src/config/database-migrations.config.ts",
     "migration:generate": "cross-var npm run development typeorm -- -d ./src/config/database-migrations.config.ts migration:generate ./src/database/migrations/$npm_config_migration_name",

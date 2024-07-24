@@ -30,10 +30,6 @@ export class AuthService {
     const randomUUId = crypto.randomUUID();
     const refreshToken = btoa(JSON.stringify({ ...payload, token: randomUUId }));
 
-    console.log({ ...payload, token: randomUUId });
-    console.log(JSON.stringify({ ...payload, token: randomUUId }));
-    console.log(refreshToken);
-
     return {
       accessToken,
       refreshToken,
