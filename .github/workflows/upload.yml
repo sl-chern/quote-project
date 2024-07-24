@@ -3,7 +3,7 @@ name: 'Upload to ECR'
 on:
   push:
     tags:
-      - '/^\d+\.\d+\.\d+$/gm'
+      - /^\d+\.\d+\.\d+$/
 
 jobs:
   upload-backend:
